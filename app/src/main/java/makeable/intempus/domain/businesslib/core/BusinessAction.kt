@@ -1,9 +1,14 @@
-package makeable.intempus.domain.businesslib.core
-
 import android.util.Log
+import makeable.intempus.domain.businesslib.core.Feature
 
-abstract class BusinessAction(val actionOrder: Int, val parentFeature: Feature?) {
+import kotlin.collections.ArrayList
 
+abstract class BusinessAction(
+    var actionOrder: Int,
+    private val parentFeature: Feature?,
+    val completionBlock: ((error: Throwable?, objects: ArrayList<Object>?) -> Void)?
+) {
+    var businessResults = ArrayList<Object>()
     protected fun isStandalone(): Boolean {
         return parentFeature == null;
     }
@@ -13,15 +18,16 @@ abstract class BusinessAction(val actionOrder: Int, val parentFeature: Feature?)
     }
 
     open fun moveOn(e: Throwable?) {
-        if (parentFeature != null) {
-            if (e == null) {
-                parentFeature.continueExecution(this)
-            } else {
-                parentFeature.onError(this)
-            }
-            parentFeature.moveOn(e)
+        if (isStandalone()) {
+            completionBlock?.invoke(e, businessResults)
         } else {
-
+            parentFeature?.moveOn(e)
         }
     }
+
+    constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : this(
+        0,
+        null,
+        completionBlock
+    )
 }

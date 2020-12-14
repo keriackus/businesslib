@@ -1,10 +1,15 @@
 package makeable.intempus.domain.businesslib.core
 
-open class Feature(actionOrder: Int, parentFeature: Feature?) : BusinessAction(0, parentFeature) {
-    var businessActions = mutableListOf<BusinessAction>();
-    fun kickoff() {
+import BusinessAction
+
+abstract class Feature: BusinessAction {
+    var businessActions = mutableListOf<BusinessAction>()
+    override fun execute() {
+        super.execute()
+        prepareInitialBusinessActions()
         businessActions.first().execute()
     }
+     protected abstract fun prepareInitialBusinessActions()
 
     fun continueExecution(coolBusinessAction: BusinessAction) {
         if (coolBusinessAction.actionOrder == businessActions.size) {
@@ -14,7 +19,9 @@ open class Feature(actionOrder: Int, parentFeature: Feature?) : BusinessAction(0
         }
     }
 
-    fun onError(badBusinessAction: BusinessAction) {
-
+    fun onError(badBusinessAction: BusinessAction,error: Throwable?) {
+        completionBlock?.invoke(error, null)
     }
+    constructor(actionOrder: Int, parentFeature: Feature) : super(actionOrder, parentFeature, null)
+    constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : super(completionBlock)
 }
