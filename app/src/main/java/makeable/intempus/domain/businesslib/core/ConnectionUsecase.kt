@@ -9,10 +9,11 @@ abstract class ConnectionUsecase : BusinessAction {
     abstract fun doConnection()
     abstract fun getEndpoint(): HttpEndpoint
     abstract fun getServiceParams(): List<HttpServiceParameter>
-    override fun execute() {
-        super.execute()
+    override suspend fun doTheJob() {
+        super.doTheJob()
         doConnection()
     }
+    
     constructor(actionOrder: Int, parentFeature: Feature) : super(actionOrder, parentFeature, null)
     constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : super(completionBlock)
 }

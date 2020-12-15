@@ -1,4 +1,6 @@
 import android.util.Log
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.withContext
 import makeable.intempus.domain.businesslib.core.Feature
 
 import kotlin.collections.ArrayList
@@ -13,15 +15,24 @@ abstract class BusinessAction(
         return parentFeature == null;
     }
 
-    open fun execute() {
+    suspend fun execute() {
+        val x = withContext(newSingleThreadContext("BINO")) { doTheJob() }
         Log.i("Execute: ", this::class.simpleName);
     }
 
-    open fun moveOn(e: Throwable?) {
+    protected open suspend fun doTheJob() {
+        Log.i("AsyncWork of: ", this::class.simpleName);
+    }
+
+    protected open suspend fun moveOn(e: Throwable?) {
         if (isStandalone()) {
             completionBlock?.invoke(e, businessResults)
         } else {
-            parentFeature?.moveOn(e)
+            if (e == null) {
+                parentFeature?.continueExecution(this)
+            } else {
+                parentFeature?.onError(this, e)
+            }
         }
     }
 

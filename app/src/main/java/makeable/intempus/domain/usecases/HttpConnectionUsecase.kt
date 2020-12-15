@@ -19,4 +19,5 @@ abstract class HttpConnectionUsecase(actionOrder: Int,
         var usernameColonPassword = username + ":" + password
         return "Basic " + usernameColonPassword.toByteArray()
     }
+
 }

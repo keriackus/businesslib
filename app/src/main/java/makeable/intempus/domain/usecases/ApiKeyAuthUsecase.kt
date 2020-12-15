@@ -5,6 +5,7 @@ import makeable.intempus.domain.businesslib.data.http.HttpEndpoint
 import makeable.intempus.domain.businesslib.data.http.HttpMethod
 import makeable.intempus.domain.businesslib.data.http.HttpServiceParameter
 import makeable.intempus.domain.businesslib.data.http.HttpServiceParameterType
+import makeable.intempus.domain.features.SignInFeature
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,6 +15,7 @@ class ApiKeyAuthUsecase(
 ) : HttpConnectionUsecase(actionOrder, parentFeature) {
 
     override fun getEndpoint(): HttpEndpoint {
+
         return HttpEndpoint(HttpMethod.GET, "web/v1/api_key")
     }
     override fun getServiceParams(): ArrayList<HttpServiceParameter> {
