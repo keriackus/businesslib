@@ -35,8 +35,6 @@ abstract class Feature: BusinessAction {
     open fun onError(badBusinessAction: BusinessAction,error: Throwable?) {
         completionBlock?.invoke(error, null)
     }
-    constructor(parentFeature: Feature) : super(parentFeature, null){
-
-    }
-    constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : super(completionBlock)
+    constructor(parentFeature: Feature) : super(parentFeature)
+    constructor(completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Void) : super(completionBlock)
 }
