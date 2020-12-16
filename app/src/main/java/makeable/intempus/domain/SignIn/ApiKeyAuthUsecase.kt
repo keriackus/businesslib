@@ -1,12 +1,13 @@
 package makeable.intempus.domain.SignIn
 
 import makeable.intempus.domain.IntempusHttpConnectionUsecase
-import makeable.intempus.domain.businesslib.core.AUTHORIZATION_HEADER_KEY
-import makeable.intempus.domain.businesslib.core.Feature
-import makeable.intempus.domain.businesslib.http.HttpEndpoint
-import makeable.intempus.domain.businesslib.http.HttpMethod
-import makeable.intempus.domain.businesslib.http.HttpServiceParameter
-import makeable.intempus.domain.businesslib.http.HttpServiceParameterType
+import makeable.intempus.domain.IntempusHttpEndpoint
+import com.keriackus.thatwaseasy.businesslib.core.AUTHORIZATION_HEADER_KEY
+import com.keriackus.thatwaseasy.businesslib.core.Feature
+import com.keriackus.thatwaseasy.businesslib.http.HttpEndpoint
+import com.keriackus.thatwaseasy.businesslib.http.HttpMethod
+import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameter
+import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameterType
 import kotlin.collections.ArrayList
 
 class ApiKeyAuthUsecase(
@@ -15,7 +16,7 @@ class ApiKeyAuthUsecase(
 
     override fun endpoint(): HttpEndpoint {
 
-        return HttpEndpoint(
+        return IntempusHttpEndpoint(
             HttpMethod.GET,
             "web/v1/api_key"
         )

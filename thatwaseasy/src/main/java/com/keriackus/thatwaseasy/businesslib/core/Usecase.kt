@@ -1,4 +1,4 @@
-package makeable.intempus.domain.businesslib.core
+package com.keriackus.thatwaseasy.businesslib.core
 
 import BusinessAction
 

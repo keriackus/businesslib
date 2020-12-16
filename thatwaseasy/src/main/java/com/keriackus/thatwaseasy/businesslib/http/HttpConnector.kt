@@ -1,4 +1,4 @@
-package makeable.intempus.domain.businesslib.http
+package com.keriackus.thatwaseasy.businesslib.http
 
 import java.io.InputStream
 import java.net.URL

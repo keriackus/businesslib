@@ -1,4 +1,4 @@
-package makeable.intempus.domain.businesslib.http
+package com.keriackus.thatwaseasy.businesslib.http
 
 abstract class HttpEndpoint(val method: HttpMethod) {
     var url  : String = ""

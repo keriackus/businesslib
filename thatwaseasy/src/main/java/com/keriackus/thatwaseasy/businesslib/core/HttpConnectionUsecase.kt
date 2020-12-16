@@ -1,8 +1,8 @@
-package makeable.intempus.domain.businesslib.core
+package com.keriackus.thatwaseasy.businesslib.core
 
-import makeable.intempus.domain.businesslib.http.HttpConnector
-import makeable.intempus.domain.businesslib.http.HttpEndpoint
-import makeable.intempus.domain.businesslib.http.HttpServiceParameter
+import com.keriackus.thatwaseasy.businesslib.http.HttpConnector
+import com.keriackus.thatwaseasy.businesslib.http.HttpEndpoint
+import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameter
 
 const val AUTHORIZATION_HEADER_KEY = "Authorization"
 

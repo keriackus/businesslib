@@ -1,7 +1,7 @@
 package makeable.intempus.domain
 
-import makeable.intempus.domain.businesslib.core.Feature
-import makeable.intempus.domain.businesslib.core.HttpConnectionUsecase
+import com.keriackus.thatwaseasy.businesslib.core.Feature
+import com.keriackus.thatwaseasy.businesslib.core.HttpConnectionUsecase
 
 abstract class IntempusHttpConnectionUsecase : HttpConnectionUsecase {
     constructor(parentFeature: Feature) : super(parentFeature)

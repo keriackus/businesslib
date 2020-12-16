@@ -1,4 +1,4 @@
-package makeable.intempus.domain.businesslib.http
+package com.keriackus.thatwaseasy.businesslib.http
 
 enum class HttpMethod {
     GET, POST, PUT, DELETE

@@ -1,6 +1,6 @@
 package makeable.intempus.domain.SignIn
 
-import makeable.intempus.domain.businesslib.core.Feature
+import com.keriackus.thatwaseasy.businesslib.core.Feature
 
 class SignInFeature(
     completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Void,

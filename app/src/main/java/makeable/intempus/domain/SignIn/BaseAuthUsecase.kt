@@ -1,17 +1,18 @@
 package makeable.intempus.domain.SignIn
 
 import makeable.intempus.domain.IntempusHttpConnectionUsecase
-import makeable.intempus.domain.businesslib.core.Feature
-import makeable.intempus.domain.businesslib.http.HttpEndpoint
-import makeable.intempus.domain.businesslib.http.HttpMethod
-import makeable.intempus.domain.businesslib.http.HttpServiceParameter
-import makeable.intempus.domain.businesslib.http.HttpServiceParameterType
+import makeable.intempus.domain.IntempusHttpEndpoint
+import com.keriackus.thatwaseasy.businesslib.core.Feature
+import com.keriackus.thatwaseasy.businesslib.http.HttpEndpoint
+import com.keriackus.thatwaseasy.businesslib.http.HttpMethod
+import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameter
+import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameterType
 
 class BaseAuthUsecase(parentFeature: Feature, private val username: String, private val password:String) : IntempusHttpConnectionUsecase(
     parentFeature) {
 
     override fun endpoint(): HttpEndpoint {
-        return HttpEndpoint(
+        return IntempusHttpEndpoint(
             HttpMethod.POST,
             "api/init"
         )
