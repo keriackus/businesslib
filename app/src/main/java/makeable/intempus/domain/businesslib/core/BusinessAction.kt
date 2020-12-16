@@ -6,10 +6,10 @@ import makeable.intempus.domain.businesslib.core.Feature
 import kotlin.collections.ArrayList
 
 abstract class BusinessAction(
-    var actionOrder: Int,
     private val parentFeature: Feature?,
     val completionBlock: ((error: Throwable?, objects: ArrayList<Object>?) -> Void)?
 ) {
+    var actionOrder : Int = 0
     var businessResults = ArrayList<Object>()
     protected fun isStandalone(): Boolean {
         return parentFeature == null;
@@ -37,7 +37,6 @@ abstract class BusinessAction(
     }
 
     constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : this(
-        0,
         null,
         completionBlock
     )

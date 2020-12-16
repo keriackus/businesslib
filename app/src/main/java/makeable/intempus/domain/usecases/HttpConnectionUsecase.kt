@@ -4,9 +4,8 @@ import makeable.intempus.domain.businesslib.core.ConnectionUsecase
 import makeable.intempus.domain.businesslib.core.Feature
 import makeable.intempus.domain.businesslib.data.http.HttpServiceParameter
 const val AUTHORIZATION_HEADER_KEY = "Authorization"
-abstract class HttpConnectionUsecase(actionOrder: Int,
-                                     parentFeature: Feature
-) : ConnectionUsecase(actionOrder, parentFeature) {
+abstract class HttpConnectionUsecase(parentFeature: Feature
+) : ConnectionUsecase(parentFeature) {
     override fun doConnection() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -19,5 +18,4 @@ abstract class HttpConnectionUsecase(actionOrder: Int,
         var usernameColonPassword = username + ":" + password
         return "Basic " + usernameColonPassword.toByteArray()
     }
-
 }

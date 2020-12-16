@@ -13,7 +13,7 @@ abstract class ConnectionUsecase : BusinessAction {
         super.doTheJob()
         doConnection()
     }
-    
-    constructor(actionOrder: Int, parentFeature: Feature) : super(actionOrder, parentFeature, null)
+
+    constructor(parentFeature: Feature) : super(parentFeature, null)
     constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : super(completionBlock)
 }

@@ -10,17 +10,23 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ApiKeyAuthUsecase(
-    actionOrder: Int,
     parentFeature: Feature, private val username: String, private val password: String
-) : HttpConnectionUsecase(actionOrder, parentFeature) {
+) : HttpConnectionUsecase(parentFeature) {
 
     override fun getEndpoint(): HttpEndpoint {
 
         return HttpEndpoint(HttpMethod.GET, "web/v1/api_key")
     }
+
     override fun getServiceParams(): ArrayList<HttpServiceParameter> {
         var params = super.getServiceParams()
-        params.add(HttpServiceParameter(HttpServiceParameterType.HEADER, AUTHORIZATION_HEADER_KEY, getBase64encodedHeaderFor(username, password)))
+        params.add(
+            HttpServiceParameter(
+                HttpServiceParameterType.HEADER,
+                AUTHORIZATION_HEADER_KEY,
+                getBase64encodedHeaderFor(username, password)
+            )
+        )
         return params
     }
 }

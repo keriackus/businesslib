@@ -3,7 +3,7 @@ package makeable.intempus.domain.businesslib.core
 import BusinessAction
 
 abstract class Feature: BusinessAction {
-     var businessActions = mutableListOf<BusinessAction>()
+    private var businessActions = mutableListOf<BusinessAction>()
 
     fun actionsCount() : Int {
         return businessActions.size;
@@ -25,7 +25,9 @@ abstract class Feature: BusinessAction {
     }
 
   protected fun addBusinessAction(b : BusinessAction){
+      b.actionOrder = businessActions.size
       businessActions.add(b)
+
   }
     open fun onSuccess(coolBusinessAction: BusinessAction){
 
@@ -33,6 +35,8 @@ abstract class Feature: BusinessAction {
     open fun onError(badBusinessAction: BusinessAction,error: Throwable?) {
         completionBlock?.invoke(error, null)
     }
-    constructor(actionOrder: Int, parentFeature: Feature) : super(actionOrder, parentFeature, null)
+    constructor(parentFeature: Feature) : super(parentFeature, null){
+
+    }
     constructor(completionBlock: (error: Throwable?, objects: ArrayList<Object>?) -> Void) : super(completionBlock)
 }

@@ -6,7 +6,7 @@ import makeable.intempus.domain.businesslib.data.http.HttpMethod
 import makeable.intempus.domain.businesslib.data.http.HttpServiceParameter
 import makeable.intempus.domain.businesslib.data.http.HttpServiceParameterType
 
-class BaseAuthUsecase(actionOrder: Int, parentFeature: Feature, private val username: String, private val password:String) : HttpConnectionUsecase(actionOrder,
+class BaseAuthUsecase(parentFeature: Feature, private val username: String, private val password:String) : HttpConnectionUsecase(
     parentFeature) {
 
     override fun getEndpoint(): HttpEndpoint {
