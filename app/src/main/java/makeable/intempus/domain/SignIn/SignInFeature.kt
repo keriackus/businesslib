@@ -3,7 +3,7 @@ package makeable.intempus.domain.SignIn
 import com.keriackus.thatwaseasy.businesslib.core.Feature
 
 class SignInFeature(
-    completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Void,
+    completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Unit,
     var username: String,
     var password: String
 ) : Feature(completionBlock) {

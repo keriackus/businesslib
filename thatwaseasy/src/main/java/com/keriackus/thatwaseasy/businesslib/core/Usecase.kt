@@ -4,5 +4,5 @@ import BusinessAction
 
 abstract class Usecase : BusinessAction {
     constructor(parentFeature: Feature) : super(parentFeature)
-    constructor(completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Void) : super(completionBlock)
+    constructor(completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Unit) : super(completionBlock)
 }

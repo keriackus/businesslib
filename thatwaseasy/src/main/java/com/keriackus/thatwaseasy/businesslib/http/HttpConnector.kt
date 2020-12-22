@@ -13,7 +13,6 @@ object HttpConnector {
         var url = URL(endpoint.url)
         var urlConnection: HttpsURLConnection
         var inStream: InputStream
-
         urlConnection = url.openConnection() as HttpsURLConnection
         urlConnection.requestMethod =  endpoint.method.name
     }
