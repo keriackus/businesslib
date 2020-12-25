@@ -8,13 +8,14 @@ const val AUTHORIZATION_HEADER_KEY = "Authorization"
 
 abstract class HttpConnectionUsecase
     : Usecase {
-    override suspend fun doTheJob() {
+    override  fun doTheJob() {
         super.doTheJob()
+
         doConnection()
     }
 
     private fun doConnection() {
-        HttpConnector.connect(endpoint(), serviceParams())
+        HttpConnector.connect(this)
     }
 
     protected abstract fun endpoint(): HttpEndpoint

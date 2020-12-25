@@ -1,7 +1,9 @@
 package com.keriackus.thatwaseasy.businesslib.core
 
 import BusinessAction
-import higherOrderScreamBeforeAndAfter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 abstract class Feature : BusinessAction {
     private var businessActions = mutableListOf<BusinessAction>()
@@ -10,15 +12,20 @@ abstract class Feature : BusinessAction {
         return businessActions.size;
     }
 
-    override suspend fun doTheJob() {
+    override  fun doTheJob() {
         super.doTheJob()
         prepareInitialBusinessActions()
-        businessActions.first().execute()
+       getCoroutineJob().launch {
+            businessActions.first().doTheJob()
+        }
     }
 
+    suspend fun x(){
+        
+    }
     protected abstract fun prepareInitialBusinessActions()
 
-    suspend fun continueExecution(coolBusinessAction: BusinessAction) {
+     fun continueExecution(coolBusinessAction: BusinessAction) {
         if (coolBusinessAction.actionOrder == businessActions.size) {
             moveOn(null)
         } else {
@@ -34,14 +41,6 @@ abstract class Feature : BusinessAction {
     }
 
     open fun onSuccess(coolBusinessAction: BusinessAction) {
-       this.higherOrderScreamBeforeAndAfter({ l: Long, b: Boolean ->
-            if (b) {
-                ""
-            } else {
-                "YAS QUEEN"
-            }
-
-        }, 2)
     }
 
     open fun onError(badBusinessAction: BusinessAction, error: Throwable?) {

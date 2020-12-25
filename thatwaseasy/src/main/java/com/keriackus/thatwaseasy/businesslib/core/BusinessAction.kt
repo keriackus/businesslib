@@ -1,41 +1,59 @@
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.withContext
+import com.keriackus.thatwaseasy.Configure
 import com.keriackus.thatwaseasy.businesslib.core.Feature
 import com.keriackus.thatwaseasy.businesslib.core.HttpConnectionUsecase
 import com.keriackus.thatwaseasy.businesslib.core.Usecase
 import com.sun.org.apache.xpath.internal.operations.Bool
+import kotlinx.coroutines.*
 
 abstract class BusinessAction(
     private val parentFeature: Feature?
 ) {
     protected lateinit var completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Unit
+    private lateinit var  coroutineJob : Job
+
     var actionOrder: Int = 0
     var businessResults = mutableListOf<Any>()
     private fun isStandalone(): Boolean {
         return parentFeature == null
     }
 
-    suspend fun execute() {
-        val x = withContext(newSingleThreadContext("BINO")) { doTheJob() }
-        //    Log.i("Execute: ", this::class.simpleName);
+     fun execute() {
+
+        GlobalScope.launch{
+            println(  "before delay")
+            delay(10000)
+            doTheJob()
+
+            println(  "after delay")
+
+        }
     }
 
-    protected open suspend fun doTheJob() {
+    internal open fun doTheJob() {
+
+        println(javaClass.simpleName +  "before delay")
         //  Log.i("AsyncWork of: ", this::class.simpleName);
     }
 
-    protected open suspend fun moveOn(e: Throwable?) {
-        if (isStandalone()) {
+    fun moveOn(e: Throwable?) {
+        if (parentFeature == null) {
             completionBlock(e, businessResults)
         } else {
             if (e == null) {
-                parentFeature?.continueExecution(this)
+                parentFeature.continueExecution(this)
             } else {
-                parentFeature?.onError(this, e)
+                parentFeature.onError(this, e)
             }
         }
     }
 
+   internal fun getCoroutineJob() : Job{
+       if(parentFeature == null){
+           return CoroutineScope(Dispatchers.IO).launch {  }
+       }else{
+           return parentFeature.getCoroutineJob()
+       }
+   }
     constructor(completionBlock: (error: Throwable?, objects: MutableList<Any>?) -> Unit) : this(
         null
     ) {
