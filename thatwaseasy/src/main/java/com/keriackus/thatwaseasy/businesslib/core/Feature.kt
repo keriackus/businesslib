@@ -1,7 +1,7 @@
 package com.keriackus.thatwaseasy.businesslib.core
 
 import BusinessAction
-import higherOrderScreamBeforeAndAfter
+
 
 abstract class Feature : BusinessAction {
     private var businessActions = mutableListOf<BusinessAction>()
@@ -19,7 +19,7 @@ abstract class Feature : BusinessAction {
     protected abstract fun prepareInitialBusinessActions()
 
     suspend fun continueExecution(coolBusinessAction: BusinessAction) {
-        if (coolBusinessAction.actionOrder == businessActions.size) {
+        if (coolBusinessAction.actionOrder == businessActions.size - 1) {
             moveOn(null)
         } else {
             businessActions[coolBusinessAction.actionOrder + 1].execute()
@@ -34,14 +34,7 @@ abstract class Feature : BusinessAction {
     }
 
     open fun onSuccess(coolBusinessAction: BusinessAction) {
-       this.higherOrderScreamBeforeAndAfter({ l: Long, b: Boolean ->
-            if (b) {
-                ""
-            } else {
-                "YAS QUEEN"
-            }
 
-        }, 2)
     }
 
     open fun onError(badBusinessAction: BusinessAction, error: Throwable?) {

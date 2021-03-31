@@ -1,9 +1,6 @@
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
 import com.keriackus.thatwaseasy.businesslib.core.Feature
-import com.keriackus.thatwaseasy.businesslib.core.HttpConnectionUsecase
-import com.keriackus.thatwaseasy.businesslib.core.Usecase
-import com.sun.org.apache.xpath.internal.operations.Bool
 
 abstract class BusinessAction(
     private val parentFeature: Feature?
@@ -12,10 +9,12 @@ abstract class BusinessAction(
     var actionOrder: Int = 0
     var businessResults = mutableListOf<Any>()
     private fun isStandalone(): Boolean {
+
         return parentFeature == null
     }
 
     suspend fun execute() {
+
         val x = withContext(newSingleThreadContext("BINO")) { doTheJob() }
         //    Log.i("Execute: ", this::class.simpleName);
     }
@@ -42,12 +41,13 @@ abstract class BusinessAction(
         this.completionBlock = completionBlock
     }
 
-    fun scream(voice: String): Int {
+}
+/*
+
+ fun scream(voice: String): Int {
         //screeaaam
         return 23
     }
-}
-/*
 Example for extension functions, higher order functions, and lambda, yeay
 //inline to rpelace it with the code instead of creating anonymous objects
 inline fun <T> BusinessAction.higherOrderScreamBeforeAndAfter(
@@ -73,4 +73,14 @@ fun x() {
             }
         }
     }, 90)
-}*/
+}
+
+  this.higherOrderScreamBeforeAndAfter({ l: Long, b: Boolean ->
+            if (b) {
+                ""
+            } else {
+                "YAS QUEEN"
+            }
+
+        }, 2)
+*/

@@ -8,8 +8,13 @@ import com.keriackus.thatwaseasy.businesslib.http.HttpMethod
 import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameter
 import com.keriackus.thatwaseasy.businesslib.http.HttpServiceParameterType
 
-class BaseAuthUsecase(parentFeature: Feature, private val username: String, private val password:String) : IntempusHttpConnectionUsecase(
-    parentFeature) {
+class BaseAuthUsecase(
+    parentFeature: Feature,
+    private val username: String,
+    private val password: String
+) : IntempusHttpConnectionUsecase(
+    parentFeature
+) {
 
     override fun endpoint(): HttpEndpoint {
         return IntempusHttpEndpoint(
@@ -17,20 +22,18 @@ class BaseAuthUsecase(parentFeature: Feature, private val username: String, priv
             "api/init"
         )
     }
+
     override fun serviceParams(): ArrayList<HttpServiceParameter> {
         var params = super.serviceParams()
+        var payload = HashMap<String, String>()
+        payload.put("username", username)
+        payload.put("password", password)
+        payload.put("apptoken", "2FuSy0XujPx2ZnrVx7P5v5I5P6smI6Vg")
         params.add(
             HttpServiceParameter(
                 HttpServiceParameterType.BODY,
-                "username",
-                username
-            )
-        )
-        params.add(
-            HttpServiceParameter(
-                HttpServiceParameterType.BODY,
-                "password",
-                password
+                "",
+                preparePayload(payload)
             )
         )
         return params
